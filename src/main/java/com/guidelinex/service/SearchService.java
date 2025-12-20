@@ -23,8 +23,8 @@ public class SearchService {
         log.info("Performing search with query: '{}', types: {}, yearFrom: {}, yearTo: {}, limit: {}, offset: {}",
                 query, types, yearFrom, yearTo, limit, offset);
 
-        if (query == null || query.trim().length() < 2) {
-            log.debug("Aborting search: query too short or null");
+        if (query == null || query.trim().isEmpty()) {
+            log.debug("Aborting search: query is empty");
             return new ArrayList<>();
         }
 
