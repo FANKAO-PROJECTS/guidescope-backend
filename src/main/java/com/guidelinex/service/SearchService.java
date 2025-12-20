@@ -17,7 +17,8 @@ public class SearchService {
 
     private final DocumentRepository documentRepository;
 
-    public List<SearchResultDTO> search(String query, String[] types, Integer yearFrom, Integer yearTo, int limit,
+    public com.guidelinex.dto.SearchResponseDTO search(String query, String[] types, Integer yearFrom, Integer yearTo,
+            int limit,
             int offset) {
 
         log.info("Performing search with query: '{}', types: {}, yearFrom: {}, yearTo: {}, limit: {}, offset: {}",
@@ -28,7 +29,12 @@ public class SearchService {
 
         if (!hasQuery && !hasFilters) {
             log.debug("Aborting search: no query and no filters provided");
-            return new ArrayList<>();
+            return com.guidelinex.dto.SearchResponseDTO.builder()
+                    .results(new ArrayList<>())
+                    .total(0)
+                    .limit(limit)
+                    .offset(offset)
+                    .build();
         }
 
         // Validate range-based constraints
@@ -40,16 +46,21 @@ public class SearchService {
         }
 
         List<Object[]> results = documentRepository.searchDocuments(
-                query.trim(),
+                query == null ? "" : query.trim(),
                 types,
                 yearFrom,
                 yearTo,
                 limit,
                 offset);
 
-        log.info("Found {} results for query: '{}'", results.size(), query);
+        long total = 0;
+        if (!results.isEmpty()) {
+            total = ((Number) results.get(0)[9]).longValue();
+        }
 
-        return results.stream().map(row -> {
+        log.info("Found {} total results ({} in current page) for query: '{}'", total, results.size(), query);
+
+        List<SearchResultDTO> dtos = results.stream().map(row -> {
             try {
                 // Safely handle keywords (java.sql.Array to String[])
                 String[] keywords = null;
@@ -87,5 +98,12 @@ public class SearchService {
                 throw new RuntimeException("Error mapping search result", e);
             }
         }).toList();
+
+        return com.guidelinex.dto.SearchResponseDTO.builder()
+                .results(dtos)
+                .total(total)
+                .limit(limit)
+                .offset(offset)
+                .build();
     }
 }

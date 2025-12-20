@@ -32,7 +32,8 @@ public interface DocumentRepository extends JpaRepository<Document, UUID> {
             'B'
           ),
           websearch_to_tsquery('english', :query)
-        ) AS score
+        ) AS score,
+        COUNT(*) OVER() AS total_count
       FROM documents
       WHERE
         (CAST(:query AS text) IS NULL OR :query = '' OR search_vector @@ websearch_to_tsquery('english', :query))
