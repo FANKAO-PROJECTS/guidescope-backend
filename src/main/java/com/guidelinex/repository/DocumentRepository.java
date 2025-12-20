@@ -35,11 +35,14 @@ public interface DocumentRepository extends JpaRepository<Document, UUID> {
         ) AS score
       FROM documents
       WHERE
-        (:query IS NULL OR :query = '' OR search_vector @@ websearch_to_tsquery('english', :query))
+        (CAST(:query AS text) IS NULL OR :query = '' OR search_vector @@ websearch_to_tsquery('english', :query))
         AND (CAST(:types AS text[]) IS NULL OR type = ANY(CAST(:types AS text[])))
-        AND (:year_from IS NULL OR year >= CAST(:year_from AS integer))
-        AND (:year_to IS NULL OR year <= CAST(:year_to AS integer))
-      ORDER BY score DESC
+        AND (CAST(:year_from AS integer) IS NULL OR year >= CAST(:year_from AS integer))
+        AND (CAST(:year_to AS integer) IS NULL OR year <= CAST(:year_to AS integer))
+      ORDER BY
+        CASE WHEN (CAST(:query AS text) IS NULL OR :query = '') THEN 0 ELSE 1 END DESC,
+        score DESC,
+        year DESC
       LIMIT :limit OFFSET :offset
       """, nativeQuery = true)
   List<Object[]> searchDocuments(

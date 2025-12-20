@@ -23,8 +23,11 @@ public class SearchService {
         log.info("Performing search with query: '{}', types: {}, yearFrom: {}, yearTo: {}, limit: {}, offset: {}",
                 query, types, yearFrom, yearTo, limit, offset);
 
-        if (query == null || query.trim().isEmpty()) {
-            log.debug("Aborting search: query is empty");
+        boolean hasFilters = (types != null && types.length > 0) || yearFrom != null || yearTo != null;
+        boolean hasQuery = query != null && !query.trim().isEmpty();
+
+        if (!hasQuery && !hasFilters) {
+            log.debug("Aborting search: no query and no filters provided");
             return new ArrayList<>();
         }
 
