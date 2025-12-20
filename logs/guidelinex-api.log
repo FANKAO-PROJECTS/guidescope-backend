@@ -1,0 +1,520 @@
+2025-12-20 10:37:03.440 [main] INFO  c.g.GuidelinexApiApplication - Starting GuidelinexApiApplication using Java 21.0.4 with PID 17848 (D:\Working\1.PROJECT\GuidelineX\backend\target\classes started by fanka in D:\Working\1.PROJECT\GuidelineX\backend)
+2025-12-20 10:37:03.441 [main] DEBUG c.g.GuidelinexApiApplication - Running with Spring Boot v4.0.1, Spring v7.0.2
+2025-12-20 10:37:03.441 [main] INFO  c.g.GuidelinexApiApplication - No active profile set, falling back to 1 default profile: "default"
+2025-12-20 10:37:04.258 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-20 10:37:04.337 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 61 ms. Found 1 JPA repository interface.
+2025-12-20 10:37:04.930 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-12-20 10:37:04.949 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-12-20 10:37:04.949 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.15]
+2025-12-20 10:37:05.081 [main] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 1612 ms
+2025-12-20 10:37:05.213 [main] DEBUG o.s.w.f.ServerHttpObservationFilter - Filter 'webMvcObservationFilter' configured for use
+2025-12-20 10:37:05.349 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2025-12-20 10:37:05.411 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.0.Final
+2025-12-20 10:37:05.806 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-12-20 10:37:05.834 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-12-20 10:37:06.744 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@58b5d5fc
+2025-12-20 10:37:06.746 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-12-20 10:37:06.830 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-12-20 10:37:07.093 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://db.ogpdwmnzqhopptjubamt.supabase.co:5432/postgres]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.6
+	Default catalog/schema: postgres/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-12-20 10:37:07.721 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-12-20 10:37:08.155 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-20 10:37:08.215 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-12-20 10:37:08.428 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-12-20 10:37:08.456 [main] INFO  o.s.v.b.OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-12-20 10:37:08.542 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 7 mappings in 'requestMappingHandlerMapping'
+2025-12-20 10:37:08.567 [main] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**, /swagger-ui*/*swagger-initializer.js, /swagger-ui*/**] in 'resourceHandlerMapping'
+2025-12-20 10:37:08.582 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-12-20 10:37:08.616 [main] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 2 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-12-20 10:37:08.896 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 3 endpoints beneath base path '/actuator'
+2025-12-20 10:37:08.999 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-12-20 10:37:09.006 [main] INFO  c.g.GuidelinexApiApplication - Started GuidelinexApiApplication in 5.994 seconds (process running for 6.27)
+2025-12-20 10:40:16.076 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-20 10:40:16.077 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-12-20 10:40:16.077 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2025-12-20 10:40:16.077 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2025-12-20 10:40:16.079 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@2b592f17
+2025-12-20 10:40:16.080 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@1ced1fb9
+2025-12-20 10:40:16.080 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-12-20 10:40:16.081 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 4 ms
+2025-12-20 10:40:16.097 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/search?q=clinical&limit=10", parameters={masked}
+2025-12-20 10:40:16.107 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.guidelinex.controller.SearchController#search(String, String[], Integer, Integer, int, int)
+2025-12-20 10:40:16.131 [http-nio-8080-exec-1] INFO  c.guidelinex.service.SearchService - Performing search with query: 'clinical', types: null, yearFrom: null, yearTo: null, limit: 10, offset: 0
+2025-12-20 10:40:16.181 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
+    SELECT
+        id,
+        type,
+        title,
+        year,
+        link,
+        keywords,
+        slug,
+        created_at,
+        ts_rank(     setweight(to_tsvector('english', title), 'A') ||     setweight(       to_tsvector(         'english',         coalesce(array_to_string(keywords, ' '), '')       ),       'B'     ),     plainto_tsquery('english', ?)   ) AS score 
+    FROM
+        documents 
+    WHERE
+        search_vector @@ plainto_tsquery('english', ?)   
+        AND (
+            ? IS NULL 
+            OR type = ANY(CAST(? AS text[]))
+        )   
+        AND (
+            ? IS NULL 
+            OR year >= ?
+        )   
+        AND (
+            ? IS NULL 
+            OR year <= ?
+        ) 
+    ORDER BY
+        score DESC 
+    LIMIT
+        ? 
+    OFFSET
+        ? 
+2025-12-20 10:40:16.246 [http-nio-8080-exec-1] TRACE org.hibernate.orm.jdbc.bind - binding parameter (1:VARCHAR) <- [clinical]
+2025-12-20 10:40:16.247 [http-nio-8080-exec-1] TRACE org.hibernate.orm.jdbc.bind - binding parameter (2:VARCHAR) <- [clinical]
+2025-12-20 10:40:16.247 [http-nio-8080-exec-1] TRACE org.hibernate.orm.jdbc.bind - binding parameter (3:ARRAY) <- [null]
+2025-12-20 10:40:16.247 [http-nio-8080-exec-1] TRACE org.hibernate.orm.jdbc.bind - binding parameter (4:ARRAY) <- [null]
+2025-12-20 10:40:16.247 [http-nio-8080-exec-1] TRACE org.hibernate.orm.jdbc.bind - binding parameter (5:INTEGER) <- [null]
+2025-12-20 10:40:16.247 [http-nio-8080-exec-1] TRACE org.hibernate.orm.jdbc.bind - binding parameter (6:INTEGER) <- [null]
+2025-12-20 10:40:16.247 [http-nio-8080-exec-1] TRACE org.hibernate.orm.jdbc.bind - binding parameter (7:INTEGER) <- [null]
+2025-12-20 10:40:16.247 [http-nio-8080-exec-1] TRACE org.hibernate.orm.jdbc.bind - binding parameter (8:INTEGER) <- [null]
+2025-12-20 10:40:16.247 [http-nio-8080-exec-1] TRACE org.hibernate.orm.jdbc.bind - binding parameter (9:INTEGER) <- [10]
+2025-12-20 10:40:16.247 [http-nio-8080-exec-1] TRACE org.hibernate.orm.jdbc.bind - binding parameter (10:INTEGER) <- [0]
+2025-12-20 10:40:16.317 [http-nio-8080-exec-1] WARN  org.hibernate.orm.jdbc.error - HHH000247: ErrorCode: 0, SQLState: 42P18
+2025-12-20 10:40:16.318 [http-nio-8080-exec-1] WARN  org.hibernate.orm.jdbc.error - ERROR: could not determine data type of parameter $3
+2025-12-20 10:40:16.397 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Using @ExceptionHandler com.guidelinex.exception.GlobalExceptionHandler#handleGeneralException(Exception, HttpServletRequest)
+2025-12-20 10:40:16.441 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/yaml]
+2025-12-20 10:40:16.445 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [ErrorResponse(timestamp=2025-12-20T10:40:16.399519700, status=500, error=Internal Server Error, mess (truncated)...]
+2025-12-20 10:40:16.495 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.dao.InvalidDataAccessResourceUsageException: JDBC exception executing SQL [ERROR: could not determine data type of parameter $3] [SELECT<EOL>  id,<EOL>  type,<EOL>  title,<EOL>  year,<EOL>  link,<EOL>  keywords,<EOL>  slug,<EOL>  created_at,<EOL>  ts_rank(<EOL>    setweight(to_tsvector('english', title), 'A') ||<EOL>    setweight(<EOL>      to_tsvector(<EOL>        'english',<EOL>        coalesce(array_to_string(keywords, ' '), '')<EOL>      ),<EOL>      'B'<EOL>    ),<EOL>    plainto_tsquery('english', ?)<EOL>  ) AS score<EOL>FROM documents<EOL>WHERE<EOL>  search_vector @@ plainto_tsquery('english', ?)<EOL>  AND (? IS NULL OR type = ANY(CAST(? AS text[])))<EOL>  AND (? IS NULL OR year >= ?)<EOL>  AND (? IS NULL OR year <= ?)<EOL>ORDER BY score DESC<EOL>LIMIT ? OFFSET ?<EOL>]; SQL [SELECT<EOL>  id,<EOL>  type,<EOL>  title,<EOL>  year,<EOL>  link,<EOL>  keywords,<EOL>  slug,<EOL>  created_at,<EOL>  ts_rank(<EOL>    setweight(to_tsvector('english', title), 'A') ||<EOL>    setweight(<EOL>      to_tsvector(<EOL>        'english',<EOL>        coalesce(array_to_string(keywords, ' '), '')<EOL>      ),<EOL>      'B'<EOL>    ),<EOL>    plainto_tsquery('english', ?)<EOL>  ) AS score<EOL>FROM documents<EOL>WHERE<EOL>  search_vector @@ plainto_tsquery('english', ?)<EOL>  AND (? IS NULL OR type = ANY(CAST(? AS text[])))<EOL>  AND (? IS NULL OR year >= ?)<EOL>  AND (? IS NULL OR year <= ?)<EOL>ORDER BY score DESC<EOL>LIMIT ? OFFSET ?<EOL>]]
+2025-12-20 10:40:16.496 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 500 INTERNAL_SERVER_ERROR
+2025-12-20 10:42:01.548 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/search?q=asthma&type=guideline&year_from=2020", parameters={masked}
+2025-12-20 10:42:01.549 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.guidelinex.controller.SearchController#search(String, String[], Integer, Integer, int, int)
+2025-12-20 10:42:01.550 [http-nio-8080-exec-4] INFO  c.guidelinex.service.SearchService - Performing search with query: 'asthma', types: [guideline], yearFrom: 2020, yearTo: null, limit: 20, offset: 0
+2025-12-20 10:42:01.551 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    SELECT
+        id,
+        type,
+        title,
+        year,
+        link,
+        keywords,
+        slug,
+        created_at,
+        ts_rank(     setweight(to_tsvector('english', title), 'A') ||     setweight(       to_tsvector(         'english',         coalesce(array_to_string(keywords, ' '), '')       ),       'B'     ),     plainto_tsquery('english', ?)   ) AS score 
+    FROM
+        documents 
+    WHERE
+        search_vector @@ plainto_tsquery('english', ?)   
+        AND (
+            ? IS NULL 
+            OR type = ANY(CAST(? AS text[]))
+        )   
+        AND (
+            ? IS NULL 
+            OR year >= ?
+        )   
+        AND (
+            ? IS NULL 
+            OR year <= ?
+        ) 
+    ORDER BY
+        score DESC 
+    LIMIT
+        ? 
+    OFFSET
+        ? 
+2025-12-20 10:42:01.614 [http-nio-8080-exec-4] TRACE org.hibernate.orm.jdbc.bind - binding parameter (1:VARCHAR) <- [asthma]
+2025-12-20 10:42:01.615 [http-nio-8080-exec-4] TRACE org.hibernate.orm.jdbc.bind - binding parameter (2:VARCHAR) <- [asthma]
+2025-12-20 10:42:01.615 [http-nio-8080-exec-4] TRACE org.hibernate.orm.jdbc.bind - binding parameter (3:ARRAY) <- [[guideline]]
+2025-12-20 10:42:01.621 [http-nio-8080-exec-4] TRACE org.hibernate.orm.jdbc.bind - binding parameter (4:ARRAY) <- [[guideline]]
+2025-12-20 10:42:01.621 [http-nio-8080-exec-4] TRACE org.hibernate.orm.jdbc.bind - binding parameter (5:INTEGER) <- [2020]
+2025-12-20 10:42:01.621 [http-nio-8080-exec-4] TRACE org.hibernate.orm.jdbc.bind - binding parameter (6:INTEGER) <- [2020]
+2025-12-20 10:42:01.621 [http-nio-8080-exec-4] TRACE org.hibernate.orm.jdbc.bind - binding parameter (7:INTEGER) <- [null]
+2025-12-20 10:42:01.622 [http-nio-8080-exec-4] TRACE org.hibernate.orm.jdbc.bind - binding parameter (8:INTEGER) <- [null]
+2025-12-20 10:42:01.622 [http-nio-8080-exec-4] TRACE org.hibernate.orm.jdbc.bind - binding parameter (9:INTEGER) <- [20]
+2025-12-20 10:42:01.622 [http-nio-8080-exec-4] TRACE org.hibernate.orm.jdbc.bind - binding parameter (10:INTEGER) <- [0]
+2025-12-20 10:42:01.796 [http-nio-8080-exec-4] INFO  c.guidelinex.service.SearchService - Found 0 results for query: 'asthma'
+2025-12-20 10:42:01.801 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/yaml]
+2025-12-20 10:42:01.801 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [[]]
+2025-12-20 10:42:01.805 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-12-20 10:42:14.848 [SpringApplicationShutdownHook] INFO  o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-12-20 10:42:14.855 [tomcat-shutdown] INFO  o.s.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-12-20 10:42:14.858 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-12-20 10:42:14.860 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-12-20 10:42:15.740 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-12-20 10:43:56.028 [main] INFO  c.g.GuidelinexApiApplication - Starting GuidelinexApiApplication using Java 21.0.4 with PID 9060 (D:\Working\1.PROJECT\GuidelineX\backend\target\classes started by fanka in D:\Working\1.PROJECT\GuidelineX\backend)
+2025-12-20 10:43:56.030 [main] DEBUG c.g.GuidelinexApiApplication - Running with Spring Boot v4.0.1, Spring v7.0.2
+2025-12-20 10:43:56.031 [main] INFO  c.g.GuidelinexApiApplication - No active profile set, falling back to 1 default profile: "default"
+2025-12-20 10:43:56.576 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-20 10:43:56.613 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 30 ms. Found 1 JPA repository interface.
+2025-12-20 10:43:56.929 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-12-20 10:43:56.940 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-12-20 10:43:56.941 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.15]
+2025-12-20 10:43:56.994 [main] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 928 ms
+2025-12-20 10:43:57.081 [main] DEBUG o.s.w.f.ServerHttpObservationFilter - Filter 'webMvcObservationFilter' configured for use
+2025-12-20 10:43:57.159 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2025-12-20 10:43:57.191 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.0.Final
+2025-12-20 10:43:57.473 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-12-20 10:43:57.495 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-12-20 10:43:58.224 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@7a0f43dc
+2025-12-20 10:43:58.226 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-12-20 10:43:58.316 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-12-20 10:43:58.534 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://db.ogpdwmnzqhopptjubamt.supabase.co:5432/postgres]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.6
+	Default catalog/schema: postgres/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-12-20 10:43:59.093 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-12-20 10:43:59.479 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-20 10:43:59.540 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-12-20 10:43:59.721 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-12-20 10:43:59.748 [main] INFO  o.s.v.b.OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-12-20 10:43:59.826 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 7 mappings in 'requestMappingHandlerMapping'
+2025-12-20 10:43:59.847 [main] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**, /swagger-ui*/*swagger-initializer.js, /swagger-ui*/**] in 'resourceHandlerMapping'
+2025-12-20 10:43:59.866 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-12-20 10:43:59.905 [main] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 2 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-12-20 10:44:00.073 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 3 endpoints beneath base path '/actuator'
+2025-12-20 10:44:00.132 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-12-20 10:44:00.140 [main] INFO  c.g.GuidelinexApiApplication - Started GuidelinexApiApplication in 4.507 seconds (process running for 4.765)
+2025-12-20 10:44:04.281 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-20 10:44:04.281 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-12-20 10:44:04.281 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2025-12-20 10:44:04.281 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2025-12-20 10:44:04.283 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@50c99398
+2025-12-20 10:44:04.284 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@6b0636d9
+2025-12-20 10:44:04.284 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-12-20 10:44:04.284 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 3 ms
+2025-12-20 10:44:04.296 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/search?q=blood&type=guideline&year_from=2020", parameters={masked}
+2025-12-20 10:44:04.303 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.guidelinex.controller.SearchController#search(String, String[], Integer, Integer, int, int)
+2025-12-20 10:44:04.324 [http-nio-8080-exec-2] INFO  c.guidelinex.service.SearchService - Performing search with query: 'blood', types: [guideline], yearFrom: 2020, yearTo: null, limit: 20, offset: 0
+2025-12-20 10:44:04.367 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    SELECT
+        id,
+        type,
+        title,
+        year,
+        link,
+        keywords,
+        slug,
+        created_at,
+        ts_rank(     setweight(to_tsvector('english', title), 'A') ||     setweight(       to_tsvector(         'english',         coalesce(array_to_string(keywords, ' '), '')       ),       'B'     ),     plainto_tsquery('english', ?)   ) AS score 
+    FROM
+        documents 
+    WHERE
+        search_vector @@ plainto_tsquery('english', ?)   
+        AND (
+            CAST(? AS text[]) IS NULL 
+            OR type = ANY(CAST(? AS text[]))
+        )   
+        AND (
+            CAST(? AS integer) IS NULL 
+            OR year >= ?
+        )   
+        AND (
+            CAST(? AS integer) IS NULL 
+            OR year <= ?
+        ) 
+    ORDER BY
+        score DESC 
+    LIMIT
+        ? 
+    OFFSET
+        ? 
+2025-12-20 10:44:04.416 [http-nio-8080-exec-2] TRACE org.hibernate.orm.jdbc.bind - binding parameter (1:VARCHAR) <- [blood]
+2025-12-20 10:44:04.417 [http-nio-8080-exec-2] TRACE org.hibernate.orm.jdbc.bind - binding parameter (2:VARCHAR) <- [blood]
+2025-12-20 10:44:04.417 [http-nio-8080-exec-2] TRACE org.hibernate.orm.jdbc.bind - binding parameter (3:ARRAY) <- [[guideline]]
+2025-12-20 10:44:04.422 [http-nio-8080-exec-2] TRACE org.hibernate.orm.jdbc.bind - binding parameter (4:ARRAY) <- [[guideline]]
+2025-12-20 10:44:04.423 [http-nio-8080-exec-2] TRACE org.hibernate.orm.jdbc.bind - binding parameter (5:INTEGER) <- [2020]
+2025-12-20 10:44:04.423 [http-nio-8080-exec-2] TRACE org.hibernate.orm.jdbc.bind - binding parameter (6:INTEGER) <- [2020]
+2025-12-20 10:44:04.423 [http-nio-8080-exec-2] TRACE org.hibernate.orm.jdbc.bind - binding parameter (7:INTEGER) <- [null]
+2025-12-20 10:44:04.423 [http-nio-8080-exec-2] TRACE org.hibernate.orm.jdbc.bind - binding parameter (8:INTEGER) <- [null]
+2025-12-20 10:44:04.423 [http-nio-8080-exec-2] TRACE org.hibernate.orm.jdbc.bind - binding parameter (9:INTEGER) <- [20]
+2025-12-20 10:44:04.424 [http-nio-8080-exec-2] TRACE org.hibernate.orm.jdbc.bind - binding parameter (10:INTEGER) <- [0]
+2025-12-20 10:44:04.573 [http-nio-8080-exec-2] INFO  c.guidelinex.service.SearchService - Found 1 results for query: 'blood'
+2025-12-20 10:44:04.580 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Using @ExceptionHandler com.guidelinex.exception.GlobalExceptionHandler#handleGeneralException(Exception, HttpServletRequest)
+2025-12-20 10:44:04.613 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/yaml]
+2025-12-20 10:44:04.616 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [ErrorResponse(timestamp=2025-12-20T10:44:04.581013500, status=500, error=Internal Server Error, mess (truncated)...]
+2025-12-20 10:44:04.655 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [java.lang.ClassCastException: class java.lang.Float cannot be cast to class java.lang.Double (java.lang.Float and java.lang.Double are in module java.base of loader 'bootstrap')]
+2025-12-20 10:44:04.656 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 500 INTERNAL_SERVER_ERROR
+2025-12-20 10:45:05.411 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/search?q=blood&type=guideline&year_from=2025", parameters={masked}
+2025-12-20 10:45:05.412 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.guidelinex.controller.SearchController#search(String, String[], Integer, Integer, int, int)
+2025-12-20 10:45:05.412 [http-nio-8080-exec-4] INFO  c.guidelinex.service.SearchService - Performing search with query: 'blood', types: [guideline], yearFrom: 2025, yearTo: null, limit: 20, offset: 0
+2025-12-20 10:45:05.413 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+    SELECT
+        id,
+        type,
+        title,
+        year,
+        link,
+        keywords,
+        slug,
+        created_at,
+        ts_rank(     setweight(to_tsvector('english', title), 'A') ||     setweight(       to_tsvector(         'english',         coalesce(array_to_string(keywords, ' '), '')       ),       'B'     ),     plainto_tsquery('english', ?)   ) AS score 
+    FROM
+        documents 
+    WHERE
+        search_vector @@ plainto_tsquery('english', ?)   
+        AND (
+            CAST(? AS text[]) IS NULL 
+            OR type = ANY(CAST(? AS text[]))
+        )   
+        AND (
+            CAST(? AS integer) IS NULL 
+            OR year >= ?
+        )   
+        AND (
+            CAST(? AS integer) IS NULL 
+            OR year <= ?
+        ) 
+    ORDER BY
+        score DESC 
+    LIMIT
+        ? 
+    OFFSET
+        ? 
+2025-12-20 10:45:05.463 [http-nio-8080-exec-4] TRACE org.hibernate.orm.jdbc.bind - binding parameter (1:VARCHAR) <- [blood]
+2025-12-20 10:45:05.463 [http-nio-8080-exec-4] TRACE org.hibernate.orm.jdbc.bind - binding parameter (2:VARCHAR) <- [blood]
+2025-12-20 10:45:05.464 [http-nio-8080-exec-4] TRACE org.hibernate.orm.jdbc.bind - binding parameter (3:ARRAY) <- [[guideline]]
+2025-12-20 10:45:05.464 [http-nio-8080-exec-4] TRACE org.hibernate.orm.jdbc.bind - binding parameter (4:ARRAY) <- [[guideline]]
+2025-12-20 10:45:05.464 [http-nio-8080-exec-4] TRACE org.hibernate.orm.jdbc.bind - binding parameter (5:INTEGER) <- [2025]
+2025-12-20 10:45:05.465 [http-nio-8080-exec-4] TRACE org.hibernate.orm.jdbc.bind - binding parameter (6:INTEGER) <- [2025]
+2025-12-20 10:45:05.465 [http-nio-8080-exec-4] TRACE org.hibernate.orm.jdbc.bind - binding parameter (7:INTEGER) <- [null]
+2025-12-20 10:45:05.465 [http-nio-8080-exec-4] TRACE org.hibernate.orm.jdbc.bind - binding parameter (8:INTEGER) <- [null]
+2025-12-20 10:45:05.465 [http-nio-8080-exec-4] TRACE org.hibernate.orm.jdbc.bind - binding parameter (9:INTEGER) <- [20]
+2025-12-20 10:45:05.465 [http-nio-8080-exec-4] TRACE org.hibernate.orm.jdbc.bind - binding parameter (10:INTEGER) <- [0]
+2025-12-20 10:45:05.514 [http-nio-8080-exec-4] INFO  c.guidelinex.service.SearchService - Found 1 results for query: 'blood'
+2025-12-20 10:45:05.516 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Using @ExceptionHandler com.guidelinex.exception.GlobalExceptionHandler#handleGeneralException(Exception, HttpServletRequest)
+2025-12-20 10:45:05.517 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/yaml]
+2025-12-20 10:45:05.517 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [ErrorResponse(timestamp=2025-12-20T10:45:05.516287800, status=500, error=Internal Server Error, mess (truncated)...]
+2025-12-20 10:45:05.519 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [java.lang.ClassCastException: class java.lang.Float cannot be cast to class java.lang.Double (java.lang.Float and java.lang.Double are in module java.base of loader 'bootstrap')]
+2025-12-20 10:45:05.520 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 500 INTERNAL_SERVER_ERROR
+2025-12-20 10:45:48.786 [SpringApplicationShutdownHook] INFO  o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-12-20 10:45:48.794 [tomcat-shutdown] INFO  o.s.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-12-20 10:45:48.797 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-12-20 10:45:48.806 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-12-20 10:45:49.319 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-12-20 10:46:37.118 [main] INFO  c.g.GuidelinexApiApplication - Starting GuidelinexApiApplication using Java 21.0.4 with PID 30128 (D:\Working\1.PROJECT\GuidelineX\backend\target\classes started by fanka in D:\Working\1.PROJECT\GuidelineX\backend)
+2025-12-20 10:46:37.120 [main] DEBUG c.g.GuidelinexApiApplication - Running with Spring Boot v4.0.1, Spring v7.0.2
+2025-12-20 10:46:37.121 [main] INFO  c.g.GuidelinexApiApplication - No active profile set, falling back to 1 default profile: "default"
+2025-12-20 10:46:37.658 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-20 10:46:37.696 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 31 ms. Found 1 JPA repository interface.
+2025-12-20 10:46:38.026 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-12-20 10:46:38.037 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-12-20 10:46:38.038 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.15]
+2025-12-20 10:46:38.083 [main] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 931 ms
+2025-12-20 10:46:38.175 [main] DEBUG o.s.w.f.ServerHttpObservationFilter - Filter 'webMvcObservationFilter' configured for use
+2025-12-20 10:46:38.249 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2025-12-20 10:46:38.278 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.0.Final
+2025-12-20 10:46:38.550 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-12-20 10:46:38.573 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-12-20 10:46:39.441 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@7a0f43dc
+2025-12-20 10:46:39.443 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-12-20 10:46:39.530 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-12-20 10:46:39.798 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://db.ogpdwmnzqhopptjubamt.supabase.co:5432/postgres]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.6
+	Default catalog/schema: postgres/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-12-20 10:46:40.327 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-12-20 10:46:40.790 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-20 10:46:40.845 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-12-20 10:46:41.025 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-12-20 10:46:41.055 [main] INFO  o.s.v.b.OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-12-20 10:46:41.135 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 7 mappings in 'requestMappingHandlerMapping'
+2025-12-20 10:46:41.155 [main] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**, /swagger-ui*/*swagger-initializer.js, /swagger-ui*/**] in 'resourceHandlerMapping'
+2025-12-20 10:46:41.177 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-12-20 10:46:41.216 [main] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 2 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-12-20 10:46:41.391 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 3 endpoints beneath base path '/actuator'
+2025-12-20 10:46:41.447 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-12-20 10:46:41.453 [main] INFO  c.g.GuidelinexApiApplication - Started GuidelinexApiApplication in 4.715 seconds (process running for 4.966)
+2025-12-20 10:46:43.351 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-20 10:46:43.351 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-12-20 10:46:43.352 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2025-12-20 10:46:43.353 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2025-12-20 10:46:43.354 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@159e9629
+2025-12-20 10:46:43.355 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@7a14d8a4
+2025-12-20 10:46:43.355 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-12-20 10:46:43.355 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 3 ms
+2025-12-20 10:46:43.370 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/search?q=blood&type=guideline&year_from=2025", parameters={masked}
+2025-12-20 10:46:43.378 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.guidelinex.controller.SearchController#search(String, String[], Integer, Integer, int, int)
+2025-12-20 10:46:43.400 [http-nio-8080-exec-1] INFO  c.guidelinex.service.SearchService - Performing search with query: 'blood', types: [guideline], yearFrom: 2025, yearTo: null, limit: 20, offset: 0
+2025-12-20 10:46:43.442 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
+    SELECT
+        id,
+        type,
+        title,
+        year,
+        link,
+        keywords,
+        slug,
+        created_at,
+        ts_rank(     setweight(to_tsvector('english', title), 'A') ||     setweight(       to_tsvector(         'english',         coalesce(array_to_string(keywords, ' '), '')       ),       'B'     ),     plainto_tsquery('english', ?)   ) AS score 
+    FROM
+        documents 
+    WHERE
+        search_vector @@ plainto_tsquery('english', ?)   
+        AND (
+            CAST(? AS text[]) IS NULL 
+            OR type = ANY(CAST(? AS text[]))
+        )   
+        AND (
+            CAST(? AS integer) IS NULL 
+            OR year >= ?
+        )   
+        AND (
+            CAST(? AS integer) IS NULL 
+            OR year <= ?
+        ) 
+    ORDER BY
+        score DESC 
+    LIMIT
+        ? 
+    OFFSET
+        ? 
+2025-12-20 10:46:43.507 [http-nio-8080-exec-1] TRACE org.hibernate.orm.jdbc.bind - binding parameter (1:VARCHAR) <- [blood]
+2025-12-20 10:46:43.508 [http-nio-8080-exec-1] TRACE org.hibernate.orm.jdbc.bind - binding parameter (2:VARCHAR) <- [blood]
+2025-12-20 10:46:43.508 [http-nio-8080-exec-1] TRACE org.hibernate.orm.jdbc.bind - binding parameter (3:ARRAY) <- [[guideline]]
+2025-12-20 10:46:43.512 [http-nio-8080-exec-1] TRACE org.hibernate.orm.jdbc.bind - binding parameter (4:ARRAY) <- [[guideline]]
+2025-12-20 10:46:43.513 [http-nio-8080-exec-1] TRACE org.hibernate.orm.jdbc.bind - binding parameter (5:INTEGER) <- [2025]
+2025-12-20 10:46:43.513 [http-nio-8080-exec-1] TRACE org.hibernate.orm.jdbc.bind - binding parameter (6:INTEGER) <- [2025]
+2025-12-20 10:46:43.513 [http-nio-8080-exec-1] TRACE org.hibernate.orm.jdbc.bind - binding parameter (7:INTEGER) <- [null]
+2025-12-20 10:46:43.513 [http-nio-8080-exec-1] TRACE org.hibernate.orm.jdbc.bind - binding parameter (8:INTEGER) <- [null]
+2025-12-20 10:46:43.513 [http-nio-8080-exec-1] TRACE org.hibernate.orm.jdbc.bind - binding parameter (9:INTEGER) <- [20]
+2025-12-20 10:46:43.513 [http-nio-8080-exec-1] TRACE org.hibernate.orm.jdbc.bind - binding parameter (10:INTEGER) <- [0]
+2025-12-20 10:46:43.668 [http-nio-8080-exec-1] INFO  c.guidelinex.service.SearchService - Found 1 results for query: 'blood'
+2025-12-20 10:46:43.695 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/yaml]
+2025-12-20 10:46:43.697 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [[SearchResultDTO(id=507953f4-9694-472f-b98b-cd343eaf53ff, type=guideline, title=High Blood Pressure, (truncated)...]
+2025-12-20 10:46:43.745 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-12-20 10:46:51.144 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/search?q=blood&type=guideline", parameters={masked}
+2025-12-20 10:46:51.144 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.guidelinex.controller.SearchController#search(String, String[], Integer, Integer, int, int)
+2025-12-20 10:46:51.145 [http-nio-8080-exec-3] INFO  c.guidelinex.service.SearchService - Performing search with query: 'blood', types: [guideline], yearFrom: null, yearTo: null, limit: 20, offset: 0
+2025-12-20 10:46:51.146 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    SELECT
+        id,
+        type,
+        title,
+        year,
+        link,
+        keywords,
+        slug,
+        created_at,
+        ts_rank(     setweight(to_tsvector('english', title), 'A') ||     setweight(       to_tsvector(         'english',         coalesce(array_to_string(keywords, ' '), '')       ),       'B'     ),     plainto_tsquery('english', ?)   ) AS score 
+    FROM
+        documents 
+    WHERE
+        search_vector @@ plainto_tsquery('english', ?)   
+        AND (
+            CAST(? AS text[]) IS NULL 
+            OR type = ANY(CAST(? AS text[]))
+        )   
+        AND (
+            CAST(? AS integer) IS NULL 
+            OR year >= ?
+        )   
+        AND (
+            CAST(? AS integer) IS NULL 
+            OR year <= ?
+        ) 
+    ORDER BY
+        score DESC 
+    LIMIT
+        ? 
+    OFFSET
+        ? 
+2025-12-20 10:46:51.209 [http-nio-8080-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter (1:VARCHAR) <- [blood]
+2025-12-20 10:46:51.210 [http-nio-8080-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter (2:VARCHAR) <- [blood]
+2025-12-20 10:46:51.210 [http-nio-8080-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter (3:ARRAY) <- [[guideline]]
+2025-12-20 10:46:51.210 [http-nio-8080-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter (4:ARRAY) <- [[guideline]]
+2025-12-20 10:46:51.210 [http-nio-8080-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter (5:INTEGER) <- [null]
+2025-12-20 10:46:51.210 [http-nio-8080-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter (6:INTEGER) <- [null]
+2025-12-20 10:46:51.210 [http-nio-8080-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter (7:INTEGER) <- [null]
+2025-12-20 10:46:51.210 [http-nio-8080-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter (8:INTEGER) <- [null]
+2025-12-20 10:46:51.210 [http-nio-8080-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter (9:INTEGER) <- [20]
+2025-12-20 10:46:51.210 [http-nio-8080-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter (10:INTEGER) <- [0]
+2025-12-20 10:46:51.276 [http-nio-8080-exec-3] INFO  c.guidelinex.service.SearchService - Found 2 results for query: 'blood'
+2025-12-20 10:46:51.277 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/yaml]
+2025-12-20 10:46:51.278 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [[SearchResultDTO(id=507953f4-9694-472f-b98b-cd343eaf53ff, type=guideline, title=High Blood Pressure, (truncated)...]
+2025-12-20 10:46:51.279 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-12-20 10:47:01.305 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/search?q=clinical&limit=10", parameters={masked}
+2025-12-20 10:47:01.306 [http-nio-8080-exec-5] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.guidelinex.controller.SearchController#search(String, String[], Integer, Integer, int, int)
+2025-12-20 10:47:01.306 [http-nio-8080-exec-5] INFO  c.guidelinex.service.SearchService - Performing search with query: 'clinical', types: null, yearFrom: null, yearTo: null, limit: 10, offset: 0
+2025-12-20 10:47:01.307 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+    SELECT
+        id,
+        type,
+        title,
+        year,
+        link,
+        keywords,
+        slug,
+        created_at,
+        ts_rank(     setweight(to_tsvector('english', title), 'A') ||     setweight(       to_tsvector(         'english',         coalesce(array_to_string(keywords, ' '), '')       ),       'B'     ),     plainto_tsquery('english', ?)   ) AS score 
+    FROM
+        documents 
+    WHERE
+        search_vector @@ plainto_tsquery('english', ?)   
+        AND (
+            CAST(? AS text[]) IS NULL 
+            OR type = ANY(CAST(? AS text[]))
+        )   
+        AND (
+            CAST(? AS integer) IS NULL 
+            OR year >= ?
+        )   
+        AND (
+            CAST(? AS integer) IS NULL 
+            OR year <= ?
+        ) 
+    ORDER BY
+        score DESC 
+    LIMIT
+        ? 
+    OFFSET
+        ? 
+2025-12-20 10:47:01.371 [http-nio-8080-exec-5] TRACE org.hibernate.orm.jdbc.bind - binding parameter (1:VARCHAR) <- [clinical]
+2025-12-20 10:47:01.371 [http-nio-8080-exec-5] TRACE org.hibernate.orm.jdbc.bind - binding parameter (2:VARCHAR) <- [clinical]
+2025-12-20 10:47:01.371 [http-nio-8080-exec-5] TRACE org.hibernate.orm.jdbc.bind - binding parameter (3:ARRAY) <- [null]
+2025-12-20 10:47:01.372 [http-nio-8080-exec-5] TRACE org.hibernate.orm.jdbc.bind - binding parameter (4:ARRAY) <- [null]
+2025-12-20 10:47:01.372 [http-nio-8080-exec-5] TRACE org.hibernate.orm.jdbc.bind - binding parameter (5:INTEGER) <- [null]
+2025-12-20 10:47:01.372 [http-nio-8080-exec-5] TRACE org.hibernate.orm.jdbc.bind - binding parameter (6:INTEGER) <- [null]
+2025-12-20 10:47:01.372 [http-nio-8080-exec-5] TRACE org.hibernate.orm.jdbc.bind - binding parameter (7:INTEGER) <- [null]
+2025-12-20 10:47:01.372 [http-nio-8080-exec-5] TRACE org.hibernate.orm.jdbc.bind - binding parameter (8:INTEGER) <- [null]
+2025-12-20 10:47:01.372 [http-nio-8080-exec-5] TRACE org.hibernate.orm.jdbc.bind - binding parameter (9:INTEGER) <- [10]
+2025-12-20 10:47:01.373 [http-nio-8080-exec-5] TRACE org.hibernate.orm.jdbc.bind - binding parameter (10:INTEGER) <- [0]
+2025-12-20 10:47:01.437 [http-nio-8080-exec-5] INFO  c.guidelinex.service.SearchService - Found 1 results for query: 'clinical'
+2025-12-20 10:47:01.438 [http-nio-8080-exec-5] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/yaml]
+2025-12-20 10:47:01.439 [http-nio-8080-exec-5] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [[SearchResultDTO(id=bc2cdc3b-3845-4b67-bb1d-46b8027c7829, type=guideline, title=Clinical Practice Gu (truncated)...]
+2025-12-20 10:47:01.440 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-12-20 10:47:16.094 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api-docs", parameters={}
+2025-12-20 10:47:16.094 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to org.springdoc.webmvc.api.OpenApiWebMvcResource#openapiJson(HttpServletRequest, String, Locale)
+2025-12-20 10:47:16.316 [http-nio-8080-exec-2] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 217 ms
+2025-12-20 10:47:16.336 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [*/*] and supported [application/json]
+2025-12-20 10:47:16.337 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [{7b226f70656e617069223a22332e312e30222c22696e666f223a7b227469746c65223a224f70656e41504920646566696e6 (truncated)...]
+2025-12-20 10:47:16.339 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
