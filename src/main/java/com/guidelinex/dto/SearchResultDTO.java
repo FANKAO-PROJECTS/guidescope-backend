@@ -14,9 +14,10 @@ import java.util.UUID;
 public class SearchResultDTO {
     private UUID id;
     private String type;
+    private String region;
+    private String field;
     private String title;
     private Integer year;
     private String link;
     private String[] keywords;
-    private Double score;
 }

@@ -1,15 +1,31 @@
 package com.guidelinex.service;
 
+import com.guidelinex.dto.SearchCapabilitiesDTO;
+import com.guidelinex.dto.SearchResponseDTO;
 import com.guidelinex.dto.SearchResultDTO;
 import com.guidelinex.repository.DocumentRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.TimeUnit;
 
+/**
+ * SearchService coordinates the search execution and applies business rules.
+ * 
+ * Responsibilities:
+ * - Normalize and sanitize search input
+ * - Validate parameters (e.g. q.length, limit bounds)
+ * - Coordinate repository calls for FTS execution
+ * - Encapsulate search business rules
+ */
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -17,81 +33,125 @@ public class SearchService {
 
     private final DocumentRepository documentRepository;
 
-    public com.guidelinex.dto.SearchResponseDTO search(String query, String[] types, Integer yearFrom, Integer yearTo,
-            int limit,
-            int offset) {
+    private final AtomicReference<SearchCapabilitiesDTO> capabilitiesCache = new AtomicReference<>();
+    private long lastCacheUpdate = 0;
+    private static final long CACHE_TTL = TimeUnit.HOURS.toMillis(24);
 
-        log.info("Performing search with query: '{}', types: {}, yearFrom: {}, yearTo: {}, limit: {}, offset: {}",
-                query, types, yearFrom, yearTo, limit, offset);
+    /**
+     * Exposes dynamic search capabilities derived from the database.
+     * Aligned with docs/search-contract.v1.json.
+     */
+    @Transactional(readOnly = true)
+    public SearchCapabilitiesDTO getCapabilities() {
+        long now = System.currentTimeMillis();
+        SearchCapabilitiesDTO cached = capabilitiesCache.get();
 
-        boolean hasFilters = (types != null && types.length > 0) || yearFrom != null || yearTo != null;
-        boolean hasQuery = query != null && !query.trim().isEmpty();
+        if (cached != null && (now - lastCacheUpdate) < CACHE_TTL) {
+            return cached;
+        }
+
+        log.info("Refreshing search capabilities cache from database...");
+
+        List<String> types = documentRepository.findDistinctTypes();
+        List<String> regions = documentRepository.findDistinctRegions();
+        List<String> fields = documentRepository.findDistinctFields();
+        List<Object[]> rangeList = documentRepository.findYearRange();
+        SearchCapabilitiesDTO.YearRange yearRange = null;
+        if (rangeList != null && !rangeList.isEmpty()) {
+            Object[] row = rangeList.get(0);
+            if (row != null && row.length >= 2) {
+                Integer min = (row[0] != null) ? ((Number) row[0]).intValue() : null;
+                Integer max = (row[1] != null) ? ((Number) row[1]).intValue() : null;
+                if (min != null || max != null) {
+                    yearRange = SearchCapabilitiesDTO.YearRange.builder()
+                            .min(min)
+                            .max(max)
+                            .build();
+                }
+            }
+        }
+
+        SearchCapabilitiesDTO capabilities = SearchCapabilitiesDTO.builder()
+                .types(types)
+                .regions(regions)
+                .fields(fields)
+                .yearRange(yearRange)
+                .build();
+
+        capabilitiesCache.set(capabilities);
+        lastCacheUpdate = now;
+
+        return capabilities;
+    }
+
+    /**
+     * Performs a normalized search operation.
+     * Validates that at least one search criterion is provided.
+     */
+    @Transactional(readOnly = true)
+    public SearchResponseDTO search(String query, String[] types, String region, String field,
+            Integer yearFrom, Integer yearTo,
+            Pageable pageable) {
+
+        // Normalize and sanitize search input
+        String normalizedQuery = (query == null) ? "" : query.trim().replaceAll("\\s+", " ").toLowerCase();
+
+        log.info(
+                "Performing search - Q: '{}', Types: {}, Region: {}, Field: {}, Year: {}-{}, Pageable: {}",
+                normalizedQuery, types, region, field, yearFrom, yearTo, pageable);
+
+        boolean hasFilters = (types != null && types.length > 0) || region != null || field != null || yearFrom != null
+                || yearTo != null;
+        boolean hasQuery = !normalizedQuery.isEmpty();
 
         if (!hasQuery && !hasFilters) {
             log.debug("Aborting search: no query and no filters provided");
-            return com.guidelinex.dto.SearchResponseDTO.builder()
+            return SearchResponseDTO.builder()
                     .results(new ArrayList<>())
                     .total(0)
-                    .limit(limit)
-                    .offset(offset)
+                    .limit(pageable.getPageSize())
+                    .offset((int) pageable.getOffset())
                     .build();
         }
 
-        // Validate range-based constraints
-        if (limit < 1 || limit > 50) {
-            throw new IllegalArgumentException("Limit must be between 1 and 50");
-        }
-        if (offset < 0) {
-            throw new IllegalArgumentException("Offset cannot be negative");
-        }
-
-        List<Object[]> results = documentRepository.searchDocuments(
-                query == null ? "" : query.trim(),
+        Page<Object[]> resultsPage = documentRepository.searchDocuments(
+                normalizedQuery,
                 types,
+                region,
+                field,
                 yearFrom,
                 yearTo,
-                limit,
-                offset);
+                pageable);
 
-        long total = 0;
-        if (!results.isEmpty()) {
-            total = ((Number) results.get(0)[9]).longValue();
-        }
+        long totalCount = resultsPage.getTotalElements();
 
-        log.info("Found {} total results ({} in current page) for query: '{}'", total, results.size(), query);
+        log.info("Found {} total results ({} in current page) for query: '{}'", totalCount,
+                resultsPage.getContent().size(), normalizedQuery);
 
-        List<SearchResultDTO> dtos = results.stream().map(row -> {
+        List<SearchResultDTO> dtos = resultsPage.getContent().stream().map(row -> {
             try {
+                // row mapping:
+                // 0:id, 1:type, 2:region, 3:field, 4:title, 5:year, 6:link, 7:keywords, 8:score
+
                 // Safely handle keywords (java.sql.Array to String[])
                 String[] keywords = null;
-                if (row[5] != null) {
-                    if (row[5] instanceof java.sql.Array javaArray) {
+                if (row[7] != null) {
+                    if (row[7] instanceof java.sql.Array javaArray) {
                         keywords = (String[]) javaArray.getArray();
-                    } else if (row[5] instanceof String[] strArray) {
+                    } else if (row[7] instanceof String[] strArray) {
                         keywords = strArray;
-                    }
-                }
-
-                // Safely handle score (Float from ts_rank to Double)
-                Double score = 0.0;
-                if (row[8] != null) {
-                    if (row[8] instanceof Float f) {
-                        score = f.doubleValue();
-                    } else if (row[8] instanceof Double d) {
-                        score = d;
-                    } else if (row[8] instanceof Number n) {
-                        score = n.doubleValue();
                     }
                 }
 
                 return SearchResultDTO.builder()
                         .id((UUID) row[0])
                         .type((String) row[1])
-                        .title((String) row[2])
-                        .year((Integer) row[3])
-                        .link((String) row[4])
+                        .region((String) row[2])
+                        .field((String) row[3])
+                        .title((String) row[4])
+                        .year((Integer) row[5])
+                        .link((String) row[6])
                         .keywords(keywords)
-                        .score(score)
                         .build();
             } catch (Exception e) {
                 log.error("Error mapping search result row: {}", e.getMessage(), e);
@@ -99,11 +159,27 @@ public class SearchService {
             }
         }).toList();
 
-        return com.guidelinex.dto.SearchResponseDTO.builder()
+        return SearchResponseDTO.builder()
                 .results(dtos)
-                .total(total)
-                .limit(limit)
-                .offset(offset)
+                .total(totalCount)
+                .limit(pageable.getPageSize())
+                .offset((int) pageable.getOffset())
                 .build();
+    }
+
+    /**
+     * Provides autocomplete suggestions for search assistance.
+     * Triggers only for queries with length >= 3.
+     */
+    @Transactional(readOnly = true)
+    public List<String> getAutocompleteSuggestions(String query) {
+        if (query == null || query.trim().length() < 3) {
+            return List.of();
+        }
+
+        String sanitized = query.trim().toLowerCase();
+        log.info("Fetching autocomplete suggestions for: {}", sanitized);
+
+        return documentRepository.findAutocompleteSuggestions(sanitized);
     }
 }

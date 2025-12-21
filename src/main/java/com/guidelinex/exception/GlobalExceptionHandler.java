@@ -10,6 +10,14 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.LocalDateTime;
 
+/**
+ * GlobalExceptionHandler provides centralized error mapping for the API.
+ * 
+ * Goals:
+ * - Convert internal exceptions to frontend-friendly ErrorResponse
+ * - Ensure validation errors return 400 status
+ * - Prevent sensitive stack traces from leaking to the client
+ */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 

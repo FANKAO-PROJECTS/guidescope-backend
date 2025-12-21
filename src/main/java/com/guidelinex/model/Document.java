@@ -5,6 +5,14 @@ import lombok.*;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+/**
+ * Document represents the authoritative clinical record in the 'documents'
+ * table.
+ * 
+ * Characteristics:
+ * - Append-only (immutable via API)
+ * - Fully synchronized with GuidelineX schema
+ */
 @Entity
 @Table(name = "documents")
 @Getter
@@ -29,6 +37,12 @@ public class Document {
 
     @Column(nullable = false)
     private String link;
+
+    @Column(nullable = false)
+    private String region;
+
+    @Column(nullable = false)
+    private String field;
 
     @Column(columnDefinition = "text[]")
     private String[] keywords;
