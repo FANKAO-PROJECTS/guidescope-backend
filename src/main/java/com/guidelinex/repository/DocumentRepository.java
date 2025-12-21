@@ -34,12 +34,26 @@ public interface DocumentRepository extends JpaRepository<Document, UUID> {
         link,
         keywords,
         CASE
+          WHEN CAST(:slug AS text) IS NOT NULL AND slug = CAST(:slug AS text) THEN 1000.0
+          WHEN lower(title) = lower(CAST(:query AS text)) THEN 100.0
           WHEN (CAST(:query AS text) IS NULL OR :query = '') THEN 0
-          ELSE ts_rank(search_vector, to_tsquery('english', regexp_replace(:query, E'\\\\s+', ':* & ', 'g') || ':*'))
+          ELSE (
+            COALESCE(ts_rank(search_vector, websearch_to_tsquery('english', :query)), 0) * 2 +
+            COALESCE(ts_rank(search_vector, to_tsquery('english', :prefixQuery)), 0)
+          )
         END AS score
       FROM documents
       WHERE
-        (CAST(:query AS text) IS NULL OR :query = '' OR search_vector @@ to_tsquery('english', regexp_replace(:query, E'\\\\s+', ':* & ', 'g') || ':*'))
+        (
+          (CAST(:slug AS text) IS NOT NULL AND slug = CAST(:slug AS text))
+          OR
+          (
+            CAST(:query AS text) IS NULL OR :query = ''
+            OR lower(title) = lower(CAST(:query AS text))
+            OR search_vector @@ websearch_to_tsquery('english', :query)
+            OR search_vector @@ to_tsquery('english', :prefixQuery)
+          )
+        )
         AND (CAST(:types AS text[]) IS NULL OR type = ANY(CAST(:types AS text[])))
         AND (CAST(:region AS text) IS NULL OR region = CAST(:region AS text))
         AND (CAST(:field AS text) IS NULL OR field = CAST(:field AS text))
@@ -52,7 +66,16 @@ public interface DocumentRepository extends JpaRepository<Document, UUID> {
       """, countQuery = """
       SELECT COUNT(*) FROM documents
       WHERE
-        (CAST(:query AS text) IS NULL OR :query = '' OR search_vector @@ to_tsquery('english', regexp_replace(:query, E'\\\\s+', ':* & ', 'g') || ':*'))
+        (
+          (CAST(:slug AS text) IS NOT NULL AND slug = CAST(:slug AS text))
+          OR
+          (
+            CAST(:query AS text) IS NULL OR :query = ''
+            OR lower(title) = lower(CAST(:query AS text))
+            OR search_vector @@ websearch_to_tsquery('english', :query)
+            OR search_vector @@ to_tsquery('english', :prefixQuery)
+          )
+        )
         AND (CAST(:types AS text[]) IS NULL OR type = ANY(CAST(:types AS text[])))
         AND (CAST(:region AS text) IS NULL OR region = CAST(:region AS text))
         AND (CAST(:field AS text) IS NULL OR field = CAST(:field AS text))
@@ -61,6 +84,8 @@ public interface DocumentRepository extends JpaRepository<Document, UUID> {
       """, nativeQuery = true)
   Page<Object[]> searchDocuments(
       @Param("query") String query,
+      @Param("prefixQuery") String prefixQuery,
+      @Param("slug") String slug,
       @Param("types") String[] types,
       @Param("region") String region,
       @Param("field") String field,
@@ -81,15 +106,15 @@ public interface DocumentRepository extends JpaRepository<Document, UUID> {
   java.util.List<Object[]> findYearRange();
 
   @Query(value = """
-      SELECT title FROM (
-        SELECT DISTINCT title,
-               ts_rank(search_vector, to_tsquery('english', :query || ':*')) as rank
+      SELECT title, slug FROM (
+        SELECT DISTINCT title, slug,
+               ts_rank(search_vector, to_tsquery('english', regexp_replace(:query, E'\\\\s+', ':* & ', 'g') || ':*')) as rank
         FROM documents
-        WHERE search_vector @@ to_tsquery('english', :query || ':*')
+        WHERE search_vector @@ to_tsquery('english', regexp_replace(:query, E'\\\\s+', ':* & ', 'g') || ':*')
           AND title ILIKE '%' || :query || '%'
         ORDER BY rank DESC
         LIMIT 5
       ) ranked_titles
       """, nativeQuery = true)
-  java.util.List<String> findAutocompleteSuggestions(@Param("query") String query);
+  java.util.List<Object[]> findAutocompleteSuggestions(@Param("query") String query);
 }

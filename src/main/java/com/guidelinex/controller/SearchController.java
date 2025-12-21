@@ -56,8 +56,9 @@ public class SearchController {
             @Parameter(description = "Filter by specialty field (Cardiology, Oncology, etc.)") @RequestParam(value = "field", required = false) String field,
             @Parameter(description = "Minimum publication year") @RequestParam(value = "year_from", required = false) Integer yearFrom,
             @Parameter(description = "Maximum publication year") @RequestParam(value = "year_to", required = false) Integer yearTo,
+            @Parameter(description = "Filter by exact slug") @RequestParam(value = "slug", required = false) String slug,
             @PageableDefault(size = 20) Pageable pageable) {
-        return searchService.search(query, types, region, field, yearFrom, yearTo, pageable);
+        return searchService.search(query, types, region, field, yearFrom, yearTo, slug, pageable);
     }
 
     /**
@@ -84,7 +85,8 @@ public class SearchController {
     @GetMapping("/search/autocomplete")
     public com.guidelinex.dto.AutocompleteResponseDTO getAutocomplete(
             @Parameter(description = "Partial search term (min 3 chars)") @RequestParam("q") String query) {
-        List<String> suggestions = searchService.getAutocompleteSuggestions(query);
+        List<com.guidelinex.dto.AutocompleteResponseDTO.Suggestion> suggestions = searchService
+                .getAutocompleteSuggestions(query);
         return new com.guidelinex.dto.AutocompleteResponseDTO(suggestions);
     }
 }

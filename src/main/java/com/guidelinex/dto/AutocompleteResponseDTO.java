@@ -10,5 +10,13 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AutocompleteResponseDTO {
-    private List<String> suggestions;
+    private List<Suggestion> suggestions;
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Suggestion {
+        private String title;
+        private String slug;
+    }
 }

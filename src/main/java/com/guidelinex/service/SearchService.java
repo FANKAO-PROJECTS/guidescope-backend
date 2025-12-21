@@ -90,7 +90,7 @@ public class SearchService {
      */
     @Transactional(readOnly = true)
     public SearchResponseDTO search(String query, String[] types, String region, String field,
-            Integer yearFrom, Integer yearTo,
+            Integer yearFrom, Integer yearTo, String slug,
             Pageable pageable) {
 
         // Normalize and sanitize search input
@@ -101,16 +101,35 @@ public class SearchService {
         // Collapse multiple spaces
         normalizedQuery = normalizedQuery.replaceAll("\\s+", " ").trim();
 
+        // Format for tsquery: replace spaces with ":* & " and append ":*"
+        // This supports the "Related/Partial" search via to_tsquery
+        String prefixQuery = "";
+        if (!normalizedQuery.isEmpty()) {
+            prefixQuery = normalizedQuery.replaceAll("\\s+", ":* & ") + ":*";
+        }
+
+        // CRITICAL FIX: For the main query parameter passed to the repository,
+        // we must use the original (trimmed) query, NOT the stripped one.
+        // This is because the repository uses this parameter for:
+        // 1. Exact Title Match (lower(title) = lower(:query)) -> Needs punctuation!
+        // 2. websearch_to_tsquery(:query) -> Handles punctuation safely itself!
+        //
+        // The previous 'normalizedQuery' stripped all special chars, breaking exact
+        // matching
+        // for titles like "AHA/ACC..." and potentially confusing websearch_to_tsquery.
+        String tsQuery = (query == null) ? "" : query.trim();
+
         log.info(
-                "Performing search - Q: '{}', Types: {}, Region: {}, Field: {}, Year: {}-{}, Pageable: {}",
-                normalizedQuery, types, region, field, yearFrom, yearTo, pageable);
+                "Performing search - Q: '{}', prefixQuery: '{}', Slug: '{}', Types: {}, Region: {}, Field: {}, Year: {}-{}, Pageable: {}",
+                normalizedQuery, prefixQuery, slug, types, region, field, yearFrom, yearTo, pageable);
 
         boolean hasFilters = (types != null && types.length > 0) || region != null || field != null || yearFrom != null
                 || yearTo != null;
         boolean hasQuery = !normalizedQuery.isEmpty();
+        boolean hasSlug = (slug != null && !slug.isEmpty());
 
-        if (!hasQuery && !hasFilters) {
-            log.debug("Aborting search: no query and no filters provided");
+        if (!hasQuery && !hasFilters && !hasSlug) {
+            log.debug("Aborting search: no query, no filters, and no slug provided");
             return SearchResponseDTO.builder()
                     .results(new ArrayList<>())
                     .total(0)
@@ -120,7 +139,9 @@ public class SearchService {
         }
 
         Page<Object[]> resultsPage = documentRepository.searchDocuments(
-                normalizedQuery,
+                tsQuery,
+                prefixQuery,
+                slug,
                 types,
                 region,
                 field,
@@ -130,8 +151,8 @@ public class SearchService {
 
         long totalCount = resultsPage.getTotalElements();
 
-        log.info("Found {} total results ({} in current page) for query: '{}'", totalCount,
-                resultsPage.getContent().size(), normalizedQuery);
+        log.info("Found {} total results ({} in current page) for query: '{}', slug: '{}'", totalCount,
+                resultsPage.getContent().size(), normalizedQuery, slug);
 
         List<SearchResultDTO> dtos = resultsPage.getContent().stream().map(row -> {
             try {
@@ -177,14 +198,40 @@ public class SearchService {
      * Triggers only for queries with length >= 3.
      */
     @Transactional(readOnly = true)
-    public List<String> getAutocompleteSuggestions(String query) {
+    public List<com.guidelinex.dto.AutocompleteResponseDTO.Suggestion> getAutocompleteSuggestions(String query) {
         if (query == null || query.trim().length() < 3) {
             return List.of();
         }
 
         String sanitized = query.trim().toLowerCase();
+        // Replace non-alphanumeric characters (except whitespace) with space
+        sanitized = sanitized.replaceAll("[^a-z0-9\\s]", " ");
+        // Collapse multiple spaces
+        sanitized = sanitized.replaceAll("\\s+", " ").trim();
+
         log.info("Fetching autocomplete suggestions for: {}", sanitized);
 
-        return documentRepository.findAutocompleteSuggestions(sanitized);
+        try {
+            List<Object[]> rows = documentRepository.findAutocompleteSuggestions(sanitized);
+
+            return rows.stream()
+                    .filter(row -> row != null && row.length >= 2) // Ensure we have both title and slug
+                    .map(row -> {
+                        try {
+                            String title = (row[0] != null) ? (String) row[0] : "";
+                            String slug = (row[1] != null) ? (String) row[1] : "";
+                            return new com.guidelinex.dto.AutocompleteResponseDTO.Suggestion(title, slug);
+                        } catch (Exception e) {
+                            log.error("Error mapping autocomplete suggestion row: {}", e.getMessage(), e);
+                            return null;
+                        }
+                    })
+                    .filter(suggestion -> suggestion != null && !suggestion.getTitle().isEmpty())
+                    .toList();
+        } catch (Exception e) {
+            log.error("Error fetching autocomplete suggestions for query '{}': {}", sanitized, e.getMessage(), e);
+            // Return empty list instead of throwing to prevent 500 errors
+            return List.of();
+        }
     }
 }
