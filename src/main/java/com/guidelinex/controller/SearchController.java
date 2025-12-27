@@ -57,8 +57,9 @@ public class SearchController {
             @Parameter(description = "Minimum publication year") @RequestParam(value = "year_from", required = false) Integer yearFrom,
             @Parameter(description = "Maximum publication year") @RequestParam(value = "year_to", required = false) Integer yearTo,
             @Parameter(description = "Filter by exact slug") @RequestParam(value = "slug", required = false) String slug,
+            @Parameter(description = "Request exact title match") @RequestParam(value = "exact", required = false, defaultValue = "false") Boolean exact,
             @PageableDefault(size = 20) Pageable pageable) {
-        return searchService.search(query, types, region, field, yearFrom, yearTo, slug, pageable);
+        return searchService.search(query, types, region, field, yearFrom, yearTo, slug, exact, pageable);
     }
 
     /**

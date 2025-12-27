@@ -32,6 +32,7 @@ import java.util.concurrent.TimeUnit;
 public class SearchService {
 
     private final DocumentRepository documentRepository;
+    private final SystemStatsService systemStatsService;
 
     private final AtomicReference<SearchCapabilitiesDTO> capabilitiesCache = new AtomicReference<>();
     private long lastCacheUpdate = 0;
@@ -90,7 +91,7 @@ public class SearchService {
      */
     @Transactional(readOnly = true)
     public SearchResponseDTO search(String query, String[] types, String region, String field,
-            Integer yearFrom, Integer yearTo, String slug,
+            Integer yearFrom, Integer yearTo, String slug, Boolean exact,
             Pageable pageable) {
 
         // Normalize and sanitize search input
@@ -104,7 +105,7 @@ public class SearchService {
         // Format for tsquery: replace spaces with ":* & " and append ":*"
         // This supports the "Related/Partial" search via to_tsquery
         String prefixQuery = "";
-        if (!normalizedQuery.isEmpty()) {
+        if (!normalizedQuery.isEmpty() && (exact == null || !exact)) {
             prefixQuery = normalizedQuery.replaceAll("\\s+", ":* & ") + ":*";
         }
 
@@ -120,8 +121,8 @@ public class SearchService {
         String tsQuery = (query == null) ? "" : query.trim();
 
         log.info(
-                "Performing search - Q: '{}', prefixQuery: '{}', Slug: '{}', Types: {}, Region: {}, Field: {}, Year: {}-{}, Pageable: {}",
-                normalizedQuery, prefixQuery, slug, types, region, field, yearFrom, yearTo, pageable);
+                "Performing search - Q: '{}', prefixQuery: '{}', Slug: '{}', Exact: {}, Types: {}, Region: {}, Field: {}, Year: {}-{}, Pageable: {}",
+                normalizedQuery, prefixQuery, slug, exact, types, region, field, yearFrom, yearTo, pageable);
 
         boolean hasFilters = (types != null && types.length > 0) || region != null || field != null || yearFrom != null
                 || yearTo != null;
@@ -137,6 +138,9 @@ public class SearchService {
                     .offset((int) pageable.getOffset())
                     .build();
         }
+
+        // Increment search count
+        systemStatsService.recordSearch();
 
         Page<Object[]> resultsPage = documentRepository.searchDocuments(
                 tsQuery,
