@@ -157,14 +157,15 @@ public class SearchService {
         List<SearchResultDTO> dtos = resultsPage.getContent().stream().map(row -> {
             try {
                 // row mapping:
-                // 0:id, 1:type, 2:region, 3:field, 4:title, 5:year, 6:link, 7:keywords, 8:score
+                // 0:id, 1:type, 2:region, 3:field, 4:title, 5:year, 6:link, 7:authors,
+                // 8:source, 9:citation, 10:keywords, 11:score
 
                 // Safely handle keywords (java.sql.Array to String[])
                 String[] keywords = null;
-                if (row[7] != null) {
-                    if (row[7] instanceof java.sql.Array javaArray) {
+                if (row[10] != null) {
+                    if (row[10] instanceof java.sql.Array javaArray) {
                         keywords = (String[]) javaArray.getArray();
-                    } else if (row[7] instanceof String[] strArray) {
+                    } else if (row[10] instanceof String[] strArray) {
                         keywords = strArray;
                     }
                 }
@@ -177,6 +178,9 @@ public class SearchService {
                         .title((String) row[4])
                         .year((Integer) row[5])
                         .link((String) row[6])
+                        .authors((String) row[7])
+                        .source((String) row[8])
+                        .citation((String) row[9])
                         .keywords(keywords)
                         .build();
             } catch (Exception e) {

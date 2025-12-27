@@ -19,5 +19,8 @@ public class SearchResultDTO {
     private String title;
     private Integer year;
     private String link;
+    private String authors;
+    private String source;
+    private String citation;
     private String[] keywords;
 }

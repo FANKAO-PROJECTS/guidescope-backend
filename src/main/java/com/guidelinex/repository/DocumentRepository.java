@@ -32,6 +32,9 @@ public interface DocumentRepository extends JpaRepository<Document, UUID> {
         title,
         year,
         link,
+        authors,
+        source,
+        citation,
         keywords,
         CASE
           WHEN CAST(:slug AS text) IS NOT NULL AND slug = CAST(:slug AS text) THEN 1000.0

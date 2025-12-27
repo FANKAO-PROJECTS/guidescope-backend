@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.guidelinex</groupId>
-	<artifactId>guidelinex-api</artifactId>
+	<artifactId>guidescope-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>guidelinex-api</name>
-	<description>Demo project for Spring Boot</description>
+	<name>guidescope-api</name>
+	<description>Clinical Search Discovery Platform - GuideScope</description>
 	<url/>
 	<licenses>
 		<license/>

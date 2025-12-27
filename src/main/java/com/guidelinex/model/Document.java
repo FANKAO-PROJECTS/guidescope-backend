@@ -14,7 +14,9 @@ import java.util.UUID;
  * - Fully synchronized with GuidelineX schema
  */
 @Entity
-@Table(name = "documents")
+@Table(name = "documents", uniqueConstraints = {
+        @UniqueConstraint(name = "uk_document_type_year_slug", columnNames = { "type", "year", "slug" })
+})
 @Getter
 @Setter
 @NoArgsConstructor
@@ -32,10 +34,10 @@ public class Document {
     @Column(nullable = false)
     private Integer year;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String title;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String link;
 
     @Column(nullable = false)
@@ -44,10 +46,19 @@ public class Document {
     @Column(nullable = false)
     private String field;
 
+    @Column(columnDefinition = "TEXT")
+    private String authors;
+
+    @Column(columnDefinition = "TEXT")
+    private String source;
+
+    @Column(columnDefinition = "TEXT")
+    private String citation;
+
     @Column(columnDefinition = "text[]")
     private String[] keywords;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String slug;
 
     @Column(name = "created_at", updatable = false)
