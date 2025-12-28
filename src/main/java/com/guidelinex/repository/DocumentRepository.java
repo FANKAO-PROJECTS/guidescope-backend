@@ -115,9 +115,20 @@ public interface DocumentRepository extends JpaRepository<Document, UUID> {
         FROM documents
         WHERE search_vector @@ to_tsquery('english', regexp_replace(:query, E'\\\\s+', ':* & ', 'g') || ':*')
           AND title ILIKE '%' || :query || '%'
+          AND (CAST(:types AS text[]) IS NULL OR type = ANY(CAST(:types AS text[])))
+          AND (CAST(:region AS text) IS NULL OR region = CAST(:region AS text))
+          AND (CAST(:field AS text) IS NULL OR field = CAST(:field AS text))
+          AND (CAST(:year_from AS integer) IS NULL OR year >= CAST(:year_from AS integer))
+          AND (CAST(:year_to AS integer) IS NULL OR year <= CAST(:year_to AS integer))
         ORDER BY rank DESC
         LIMIT 5
       ) ranked_titles
       """, nativeQuery = true)
-  java.util.List<Object[]> findAutocompleteSuggestions(@Param("query") String query);
+  java.util.List<Object[]> findAutocompleteSuggestions(
+      @Param("query") String query,
+      @Param("types") String[] types,
+      @Param("region") String region,
+      @Param("field") String field,
+      @Param("year_from") Integer yearFrom,
+      @Param("year_to") Integer yearTo);
 }

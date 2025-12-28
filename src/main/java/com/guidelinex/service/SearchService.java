@@ -206,7 +206,8 @@ public class SearchService {
      * Triggers only for queries with length >= 3.
      */
     @Transactional(readOnly = true)
-    public List<com.guidelinex.dto.AutocompleteResponseDTO.Suggestion> getAutocompleteSuggestions(String query) {
+    public List<com.guidelinex.dto.AutocompleteResponseDTO.Suggestion> getAutocompleteSuggestions(
+            String query, String[] types, String region, String field, Integer yearFrom, Integer yearTo) {
         if (query == null || query.trim().length() < 3) {
             return List.of();
         }
@@ -217,10 +218,12 @@ public class SearchService {
         // Collapse multiple spaces
         sanitized = sanitized.replaceAll("\\s+", " ").trim();
 
-        log.info("Fetching autocomplete suggestions for: {}", sanitized);
+        log.info("Fetching autocomplete suggestions for: {} with filters [types={}, region={}, field={}, year={}-{}]",
+                sanitized, types, region, field, yearFrom, yearTo);
 
         try {
-            List<Object[]> rows = documentRepository.findAutocompleteSuggestions(sanitized);
+            List<Object[]> rows = documentRepository.findAutocompleteSuggestions(
+                    sanitized, types, region, field, yearFrom, yearTo);
 
             return rows.stream()
                     .filter(row -> row != null && row.length >= 2) // Ensure we have both title and slug

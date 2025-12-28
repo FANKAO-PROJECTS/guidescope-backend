@@ -81,13 +81,18 @@ public class SearchController {
      * @param query Partial search term (minimum 3 characters)
      * @return List of up to 5 suggestions
      */
-    @Operation(summary = "Get autocomplete suggestions", description = "Returns up to 5 search suggestions based on document titles and keywords. Requires minimum 3 characters.")
+    @Operation(summary = "Get autocomplete suggestions", description = "Returns up to 5 search suggestions based on document titles and keywords. Requires minimum 3 characters. Respects active search filters.")
     @ApiResponse(responseCode = "200", description = "Suggestions retrieved successfully")
     @GetMapping("/search/autocomplete")
     public com.guidelinex.dto.AutocompleteResponseDTO getAutocomplete(
-            @Parameter(description = "Partial search term (min 3 chars)") @RequestParam("q") String query) {
+            @Parameter(description = "Partial search term (min 3 chars)") @RequestParam("q") String query,
+            @Parameter(description = "Filter by document types") @RequestParam(value = "type", required = false) String[] types,
+            @Parameter(description = "Filter by region") @RequestParam(value = "region", required = false) String region,
+            @Parameter(description = "Filter by specialty field") @RequestParam(value = "field", required = false) String field,
+            @Parameter(description = "Minimum publication year") @RequestParam(value = "year_from", required = false) Integer yearFrom,
+            @Parameter(description = "Maximum publication year") @RequestParam(value = "year_to", required = false) Integer yearTo) {
         List<com.guidelinex.dto.AutocompleteResponseDTO.Suggestion> suggestions = searchService
-                .getAutocompleteSuggestions(query);
+                .getAutocompleteSuggestions(query, types, region, field, yearFrom, yearTo);
         return new com.guidelinex.dto.AutocompleteResponseDTO(suggestions);
     }
 }
